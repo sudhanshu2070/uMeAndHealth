@@ -1,11 +1,19 @@
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
+import { RootStackParamList } from '../utils/types';
+
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'HomeScreen'>;
+
 
 const HomeScreen = () => {
   // Get the current day of the week
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const currentDay = days[new Date().getDay()];
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+  
 
   return (
     <View style={styles.container}>
@@ -32,7 +40,7 @@ const HomeScreen = () => {
         </TouchableOpacity>
 
         {/* Add Button (Centered) */}
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AppointmentScreen')}>
           <Icon name="plus" size={32} color="#fff" />
         </TouchableOpacity>
 

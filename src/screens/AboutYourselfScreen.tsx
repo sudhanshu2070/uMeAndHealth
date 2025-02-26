@@ -17,7 +17,7 @@ const AboutYourselfScreen = () => {
     if (age && gender) {
       navigation.navigate('LoginScreen');
     } else {
-      alert('Please fill in all fields.');
+      alert('Please fill in Age and Gender fields.');
     }
   };
 
