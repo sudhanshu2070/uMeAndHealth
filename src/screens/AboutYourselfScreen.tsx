@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../utils/types'; // Adjust the import based on your project structure
+import { RootStackParamList } from '../utils/types';
 
 type AboutYourselfScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AboutYourself'>;
 
@@ -14,7 +14,7 @@ const AboutYourselfScreen = () => {
   const navigation = useNavigation<AboutYourselfScreenNavigationProp>();
 
   const handleNext = () => {
-    if (age && gender && weight) {
+    if (age && gender) {
       navigation.navigate('LoginScreen');
     } else {
       alert('Please fill in all fields.');
