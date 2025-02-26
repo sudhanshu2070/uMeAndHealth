@@ -26,7 +26,22 @@ const AppNavigator: React.FC = () => {
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="AppointmentScreen" component={AppointmentScreen} />
+        <Stack.Screen 
+          name="AppointmentScreen" 
+          component={AppointmentScreen} 
+          options={{
+            title: 'Schedule an Appointment',
+            headerStyle: {
+              height: 110,
+            },
+            headerTitleStyle: {
+              fontSize: 22, 
+              fontWeight: 'bold',
+              fontFamily: 'Roboto',
+              color: '#818589', 
+            },
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

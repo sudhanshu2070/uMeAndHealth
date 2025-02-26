@@ -31,7 +31,7 @@ const AppointmentScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header */}
-      <Text style={styles.header}>Schedule an Appointment</Text>
+      {/* <Text style={styles.header}>Schedule an Appointment</Text> */}
 
       {/* For Self or Other */}
       <View style={styles.section}>
@@ -197,11 +197,11 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#aaa',
+    borderColor: '#36454F',
   },
   radioButtonSelected: {
-    backgroundColor: '#6A5ACD',
-    borderColor: '#6A5ACD',
+    backgroundColor: '#A9A9A9',
+    borderColor: '#000000',
   },
   radioText: {
     fontSize: 14,
@@ -214,9 +214,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#ddd',
+    height: 55,
   },
   submitButton: {
-    backgroundColor: '#6A5ACD',
+    backgroundColor: '#A9A9A9',
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',
