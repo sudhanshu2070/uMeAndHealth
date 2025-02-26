@@ -1,114 +1,231 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-const AppointmentScreen: React.FC = () => {
+const AppointmentScreen = () => {
+  // State variables
+  const [forSelf, setForSelf] = useState<'self' | 'other'>('self');
+  const [patientName, setPatientName] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState('');
   const [doctor, setDoctor] = useState('');
   const [timing, setTiming] = useState('');
+  const [reason, setReason] = useState('');
 
-  // Sample data for doctors and timings
-  const doctors = ['Dr. John Doe', 'Dr. Jane Smith', 'Dr. Emily Johnson'];
-  const timings = ['9:00 AM', '11:00 AM', '1:00 PM', '3:00 PM'];
+  // Dummy data for doctors and timings
+  const doctors = ['Dr. John Doe', 'Dr. Jane Smith', 'Dr. Emily White'];
+  const timings = [
+    'Today - 10:00 AM',
+    'Today - 2:00 PM',
+    'Tomorrow - 11:00 AM',
+    'Custom - Select Date',
+  ];
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Schedule an Appointment</Text>
+      {/* Header */}
+      <Text style={styles.header}>Schedule an Appointment</Text>
 
-      <View style={styles.inputContainer}>
+      {/* For Self or Other */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Appointment For:</Text>
+        <View style={styles.radioGroup}>
+          <TouchableOpacity
+            style={[styles.radioButton, forSelf === 'self' && styles.radioButtonSelected]}
+            onPress={() => setForSelf('self')}
+          >
+            <Text style={styles.radioText}>Self</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.radioButton, forSelf === 'other' && styles.radioButtonSelected]}
+            onPress={() => setForSelf('other')}
+          >
+            <Text style={styles.radioText}>Other</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Patient's Full Name */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Patient's Full Name:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter full name"
+          value={patientName}
+          onChangeText={setPatientName}
+        />
+      </View>
+
+      {/* Age */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Age:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter age"
+          keyboardType="numeric"
+          value={age}
+          onChangeText={(text) => setAge(text.replace(/[^0-9]/g, ''))}
+        />
+      </View>
+
+      {/* Gender */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Gender:</Text>
+        <View style={styles.radioGroup}>
+          <TouchableOpacity
+            style={[styles.radioButton, gender === 'Male' && styles.radioButtonSelected]}
+            onPress={() => setGender('Male')}
+          >
+            <Text style={styles.radioText}>Male</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.radioButton, gender === 'Female' && styles.radioButtonSelected]}
+            onPress={() => setGender('Female')}
+          >
+            <Text style={styles.radioText}>Female</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.radioButton, gender === 'Other' && styles.radioButtonSelected]}
+            onPress={() => setGender('Other')}
+          >
+            <Text style={styles.radioText}>Other</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Doctor Selection */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Select Doctor:</Text>
         <Picker
           selectedValue={doctor}
           onValueChange={(itemValue) => setDoctor(itemValue)}
           style={styles.picker}
         >
-          <Picker.Item label="Select Doctor" value="" />
-          {doctors.map((doctor) => (
-            <Picker.Item key={doctor} label={doctor} value={doctor} />
+          <Picker.Item label="Select a doctor" value="" />
+          {doctors.map((doc, index) => (
+            <Picker.Item key={index} label={doc} value={doc} />
           ))}
         </Picker>
       </View>
 
-      <View style={styles.inputContainer}>
+      {/* Timing Selection */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Available Timing:</Text>
         <Picker
           selectedValue={timing}
           onValueChange={(itemValue) => setTiming(itemValue)}
           style={styles.picker}
         >
-          <Picker.Item label="Select Timing" value="" />
-          {timings.map((timing) => (
-            <Picker.Item key={timing} label={timing} value={timing} />
+          <Picker.Item label="Select a timing" value="" />
+          {timings.map((time, index) => (
+            <Picker.Item key={index} label={time} value={time} />
           ))}
         </Picker>
       </View>
 
-      <View style={styles.inputContainer}>
+      {/* Reason for Appointment */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Reason for Appointment:</Text>
         <TextInput
-          placeholder="Full Name"
-          style={styles.input}
-          keyboardType="default"
+          style={[styles.input, styles.multilineInput]}
+          placeholder="Enter reason for appointment"
+          multiline
+          numberOfLines={4}
+          value={reason}
+          onChangeText={setReason}
         />
       </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Email"
-          style={styles.input}
-          keyboardType="email-address"
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Phone Number"
-          style={styles.input}
-          keyboardType="phone-pad"
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Reason for Appointment"
-          style={styles.input}
-          keyboardType="default"
-        />
-      </View>
-
-      <Button title="Submit" onPress={() => {}} />
+      {/* Submit Button */}
+      <TouchableOpacity style={styles.submitButton}>
+        <Text style={styles.submitButtonText}>Book Appointment</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
 
+// Styles
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexGrow: 1,
     padding: 20,
-    backgroundColor: '#f0f0f0', // Light grey background
+    backgroundColor: '#f5f5f5',
   },
-  title: {
+  header: {
     fontSize: 24,
     fontWeight: 'bold',
+    textAlign: 'center',
     marginBottom: 20,
-    color: '#333', // Dark text for contrast
+    color: '#333',
   },
-  inputContainer: {
-    width: '100%',
-    marginBottom: 15,
+  section: {
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 8,
+    color: '#555',
   },
   input: {
-    backgroundColor: '#fff', // White input field for contrast
-    padding: 10,
-    borderRadius: 5,
+    backgroundColor: '#fff',
+    padding: 12,
+    borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#ddd', // Light grey border
+    borderColor: '#ddd',
+    fontSize: 16,
+  },
+  multilineInput: {
+    height: 100,
+    textAlignVertical: 'top',
+  },
+  radioGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  radioButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 15,
+    padding: 8,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#aaa',
+  },
+  radioButtonSelected: {
+    backgroundColor: '#6A5ACD',
+    borderColor: '#6A5ACD',
+  },
+  radioText: {
+    fontSize: 14,
+    marginLeft: 5,
+    color: '#333',
   },
   picker: {
-    backgroundColor: '#fff', // White picker for contrast
+    backgroundColor: '#fff',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#ddd', // Light grey border
-    width: '100%',
+    borderColor: '#ddd',
+  },
+  submitButton: {
+    backgroundColor: '#6A5ACD',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  submitButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
   },
 });
 
