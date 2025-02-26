@@ -1,77 +1,76 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../utils/types';
+import { RootStackParamList } from '../utils/types'; // Adjust the import based on your project structure
 
 type AboutYourselfScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AboutYourself'>;
 
-const AboutYourselfScreen: React.FC = () => {
+const AboutYourselfScreen = () => {
+  const [age, setAge] = useState<string>('');
+  const [gender, setGender] = useState<string>('');
+  const [weight, setWeight] = useState<string>('');
   const navigation = useNavigation<AboutYourselfScreenNavigationProp>();
 
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [weight, setWeight] = useState<number | null>(null);
-
-  const genders = ['Male', 'Female', 'Other'];
+  const handleNext = () => {
+    if (age && gender && weight) {
+      navigation.navigate('LoginScreen');
+    } else {
+      alert('Please fill in all fields.');
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Skip Button */}
-      <TouchableOpacity
-        style={styles.skipButton}
-        onPress={() => navigation.navigate('LoginScreen')}
-      >
-        <Text style={styles.skipButtonText}>Skip</Text>
-      </TouchableOpacity>
-
-      {/* Title */}
       <Text style={styles.title}>Tell me more about yourself</Text>
 
-      {/* Age Picker */}
-      <Picker
-        selectedValue={age}
-        onValueChange={(itemValue) => setAge(itemValue)}
-        style={styles.picker}
-      >
-        <Picker.Item label="Your Age" value="" />
-        {[...Array(100).keys()].map((age) => (
-          <Picker.Item key={age} label={age.toString()} value={age.toString()} />
-        ))}
-      </Picker>
+       <View style={styles.allItemsContainer}> 
+      {/* Age Input */}
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your age"
+          placeholderTextColor="#999"
+          keyboardType="numeric"
+          value={age}
+          onChangeText={setAge}
+        />
+      </View>
 
-      {/* Gender Picker */}
-      <Picker
-        selectedValue={gender}
-        onValueChange={(itemValue) => setGender(itemValue)}
-        style={styles.picker}
-      >
-        <Picker.Item label="Your Gender" value="" />
-        {genders.map((gender) => (
-          <Picker.Item key={gender} label={gender} value={gender} />
-        ))}
-      </Picker>
+      {/* Gender Dropdown */}
+      <View style={styles.inputContainer}>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={gender}
+            onValueChange={(itemValue) => setGender(itemValue)}
+            style={styles.picker}
+          >
+            <Picker.Item label="Select Gender" value="" />
+            <Picker.Item label="Male" value="male" />
+            <Picker.Item label="Female" value="female" />
+            <Picker.Item label="Other" value="other" />
+          </Picker>
+        </View>
+      </View>
 
-      {/* Weight Picker */}
-      <View style={styles.sliderContainer}>
-        <Text style={styles.sliderLabel}>Your Weight</Text>
-        <Picker
-          selectedValue={weight ? weight.toString() : ''}
-          onValueChange={(itemValue: string) => setWeight(itemValue ? parseInt(itemValue, 10) : null)}
-          style={styles.picker}
-        >
-          <Picker.Item label="Select" value="" />
-          {[50, 60, 70, 80, 90, 100].map((weight) => (
-            <Picker.Item key={weight} label={weight.toString()} value={weight.toString()} />
-          ))}
-        </Picker>
+      {/* Weight Input */}
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your weight (kg)"
+          placeholderTextColor="#999"
+          keyboardType="numeric"
+          value={weight}
+          onChangeText={setWeight}
+        />
       </View>
 
       {/* Next Button */}
-      <TouchableOpacity style={styles.nextButton}>
+      <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
         <Text style={styles.nextButtonText}>Next</Text>
       </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
@@ -80,53 +79,77 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     padding: 20,
-  },
-  skipButton: {
-    alignSelf: 'flex-end',
-    margin: 10,
-  },
-  skipButtonText: {
-    color: '#6A5ACD',
-    fontSize: 16,
-    fontWeight: 'bold',
+    backgroundColor: '#f5f5f5',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 100,
+    color: '#333',
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+  allItemsContainer:{
+    marginTop:10,
+    marginBottom:100,
+  }
+  ,
+  inputContainer: {
     marginBottom: 20,
   },
-  picker: {
-    width: '100%',
-    marginVertical: 10,
+  input: {
+    backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: '#ccc',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-  },
-  sliderContainer: {
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 20,
-  },
-  sliderLabel: {
+    borderColor: '#ddd',
+    borderRadius: 12,
+    padding: 15,
     fontSize: 16,
-    marginBottom: 10,
+    color: '#333',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  pickerContainer: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 12,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  picker: {
+    height: 55,
+    width: '100%',
+    color: '#333',
   },
   nextButton: {
-    backgroundColor: '#6A5ACD',
+    backgroundColor: '#64b5f6', // Light shade of blue
     padding: 15,
-    borderRadius: 8,
-    width: '100%',
-    marginVertical: 20,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginTop: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
   },
   nextButtonText: {
     color: '#fff',
     fontSize: 18,
-    textAlign: 'center',
+    fontWeight: 'bold',
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
 });
 
