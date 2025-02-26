@@ -16,7 +16,7 @@ const LogoScreen: React.FC = () => {
     // Animate the spin value from 0 to 1
     const spin = Animated.timing(spinValue, {
       toValue: 1,
-      duration: 2000,
+      duration: 1000,
       useNativeDriver: true,
       easing: Easing.linear,
     });
@@ -31,7 +31,7 @@ const LogoScreen: React.FC = () => {
   // Interpolate the spin value to convert it to a rotation angle
   const spinInterpolate = spinValue.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
+    outputRange: ['0deg', '0deg'], //Not roataing the image for now
   });
 
   return (

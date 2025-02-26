@@ -6,6 +6,7 @@ import AboutYourselfScreen from '../screens/AboutYourselfScreen';
 import { RootStackParamList } from '../utils/types';
 import LoginScreen from '../screens/login/LoginScreen';
 import SignUpScreen from '../screens/signUp/SignUpScreen';
+import HomeScreen from '../screens/HomeScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -23,6 +24,7 @@ const AppNavigator: React.FC = () => {
         <Stack.Screen name="AboutYourself" component={AboutYourselfScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

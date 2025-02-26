@@ -14,7 +14,7 @@ const LoginScreen = () => {
   const handleLogin = () => {
     if (email && password) {
       alert('Login successful!');
-      // Navigate to the next screen (e.g., HomeScreen)
+        navigation.navigate('HomeScreen');
     } else {
       alert('Please fill in all fields.');
     }
