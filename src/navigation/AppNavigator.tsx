@@ -9,7 +9,13 @@ const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="LogoScreen">
-        <Stack.Screen name="LogoScreen" component={LogoScreen} />
+        <Stack.Screen 
+            name="LogoScreen" 
+            component={LogoScreen}
+            options={{
+                headerShown: false,
+              }}
+            />
       </Stack.Navigator>
     </NavigationContainer>
   );
