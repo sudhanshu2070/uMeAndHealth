@@ -19,7 +19,7 @@ const AppointmentScreen = () => {
   const [timing, setTiming] = useState('');
   const [reason, setReason] = useState('');
 
-  // Dummy data for doctors and timings
+  // Dummy data for doctors and timings(will get from APIs later on )
   const doctors = ['Dr. John Doe', 'Dr. Jane Smith', 'Dr. Emily White'];
   const timings = [
     'Today - 10:00 AM',
