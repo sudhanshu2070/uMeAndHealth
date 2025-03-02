@@ -9,17 +9,21 @@ import SignUpScreen from '../screens/signUp/SignUpScreen';
 import HomeScreen from '../screens/HomeScreen';
 import AppointmentScreen from '../screens/AppointmentScreen';
 
+// Creating a stack navigator with the defined route parameters
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
   return (
+    // Wrap the navigator in a NavigationContainer to manage navigation state
     <NavigationContainer>
+      {/* Define the stack navigator and set the initial route */}
       <Stack.Navigator initialRouteName="LogoScreen">
+        {/* Define each screen in the stack navigator */}
         <Stack.Screen 
             name="LogoScreen" 
             component={LogoScreen}
             options={{
-                headerShown: false,
+                headerShown: false, // Hide the header for the LogoScreen
               }}
         />
         <Stack.Screen name="AboutYourself" component={AboutYourselfScreen} />
@@ -30,15 +34,15 @@ const AppNavigator: React.FC = () => {
           name="AppointmentScreen" 
           component={AppointmentScreen} 
           options={{
-            title: 'Schedule an Appointment',
+            title: 'Schedule an Appointment', // Set the title for the AppointmentScreen
             headerStyle: {
-              height: 110,
+              height: 110, // Set the height of the header
             },
             headerTitleStyle: {
               fontSize: 22, 
               fontWeight: 'bold',
               fontFamily: 'Roboto',
-              color: '#818589', 
+              color: '#818589', // Set the color of the header title
             },
           }}
         />
@@ -47,4 +51,5 @@ const AppNavigator: React.FC = () => {
   );
 };
 
+// Export the AppNavigator component as the default export
 export default AppNavigator;
