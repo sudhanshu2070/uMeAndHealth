@@ -35,8 +35,8 @@ const HomeScreen = () => {
         </TouchableOpacity>
 
         {/* Discover Icon */}
-        <TouchableOpacity style={styles.navItem}>
-          <Icon name="compass" size={28} color="#999" />
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('UserProfileScreen')}>
+          <Icon name="compass" size={28} color="#999" ></Icon>
         </TouchableOpacity>
 
         {/* Add Button (Centered) */}
