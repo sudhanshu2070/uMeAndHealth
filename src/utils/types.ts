@@ -9,4 +9,5 @@ export type RootStackParamList = {
     AboutYourself: undefined;
     HomeScreen: undefined;
     AppointmentScreen: undefined;
+    UserProfileScreen: undefined;
 };

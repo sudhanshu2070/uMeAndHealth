@@ -8,6 +8,7 @@ import LoginScreen from '../screens/login/LoginScreen';
 import SignUpScreen from '../screens/signUp/SignUpScreen';
 import HomeScreen from '../screens/HomeScreen';
 import AppointmentScreen from '../screens/AppointmentScreen';
+import ProfileSetupScreen from '../screens/ProfileScreen';
 
 // Creating a stack navigator with the defined route parameters
 const Stack = createStackNavigator<RootStackParamList>();
@@ -46,6 +47,7 @@ const AppNavigator: React.FC = () => {
             },
           }}
         />
+        <Stack.Screen name="UserProfileScreen" component={ProfileSetupScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
